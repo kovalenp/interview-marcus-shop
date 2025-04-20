@@ -6,6 +6,7 @@ import { closeMongo } from './db/mongo'
 import mongoPlugin from './db/plugin'
 import healthRoute from './routes/health'
 import { v4 as uuid4 } from 'uuid'
+import productsRoute from './routes/products'
 
 async function bootstrap() {
   const app = Fastify({
@@ -28,6 +29,7 @@ async function bootstrap() {
 
   // Routes
   await app.register(healthRoute)
+  await app.register(productsRoute, { prefix: '/products' })
 
   app.addHook('onClose', async () => {
     await closeMongo()
