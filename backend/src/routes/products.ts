@@ -43,7 +43,7 @@ const productsRoute: FastifyPluginAsync = async (app) => {
     const allOptionIds = Object.values(product.availableOptions).flat()
 
     const partOptions = await app.collections.partOptions
-      .find({ _id: { $in: allOptionIds as any } })
+      .find({ _id: { $in: allOptionIds } })
       .toArray()
 
     const dto = toProductDetailDto(product, partOptions, locale)
