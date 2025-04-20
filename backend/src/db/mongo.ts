@@ -1,5 +1,6 @@
 import pino from 'pino' // Import pino
 import { MongoClient, Db } from 'mongodb'
+import { PartCategory, PartOption, Product } from '@/models'
 
 const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017'
 const DB_NAME = process.env.MONGO_DB_NAME || 'marcus-shop'
@@ -33,9 +34,8 @@ export async function closeMongo(): Promise<void> {
 
 export function getCollections(db: Db) {
   return {
-    products: db.collection('products'),
-    partOptions: db.collection('part_options'),
-    partCategories: db.collection('part_categories'),
-    carts: db.collection('carts')
+    products: db.collection<Product>('products'),
+    partOptions: db.collection<PartOption>('part_options'),
+    partCategories: db.collection<PartCategory>('part_categories')
   }
 }
