@@ -1,0 +1,6 @@
+# /Users/pavelkovalenko/Work/interview-marcus-shop/pnpm-workspace.yaml
+packages:
+  # include packages in subfolders (e.g., backend, frontend)
+  - 'backend'
+  # Add 'frontend' or other package directories here when they exist
+  # - 'frontend'
