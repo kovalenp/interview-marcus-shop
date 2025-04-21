@@ -23,7 +23,7 @@
       "pnpm --filter backend format",
       "pnpm --filter backend lint:fix"
     ],
-    "frontend/src/**/*.{js,jsx,ts,tsx}": [
+    "frontend/src/**/*.{ts,tsx}": [
       "pnpm --filter frontend format",
       "pnpm --filter frontend lint:fix"
     ]

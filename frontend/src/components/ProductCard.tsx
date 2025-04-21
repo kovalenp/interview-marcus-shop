@@ -11,14 +11,14 @@ export interface ProductCardProps {
 
 export default function ProductCard({ slug, name, image }: ProductCardProps) {
   return (
-    <Link href={`/product/${slug}`} className="block group">
-      <div className="border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
-        <div className="relative w-full h-48">
+    <Link href={`/product/${slug}`} className="group block">
+      <div className="overflow-hidden rounded-xl border shadow-sm transition hover:shadow-md">
+        <div className="relative h-48 w-full">
           <Image
             src={image}
             alt={name}
             fill
-            className="object-cover group-hover:scale-105 transition-transform"
+            className="object-cover transition-transform group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, 33vw"
           />
         </div>
