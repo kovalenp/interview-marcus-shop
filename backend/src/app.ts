@@ -8,6 +8,7 @@ import healthRoute from './routes/health'
 import { v4 as uuid4 } from 'uuid'
 import productsRoute from './routes/products'
 import { registerServices } from './services'
+import cors from '@fastify/cors'
 
 async function bootstrap() {
   const app = Fastify({
@@ -25,6 +26,11 @@ async function bootstrap() {
     }
   })
 
+  await app.register(cors, {
+    origin: 'http://localhost:3000',
+    credentials: true
+  })
+
   // Plugins
   await app.register(mongoPlugin)
   // Services
@@ -38,8 +44,8 @@ async function bootstrap() {
   })
 
   try {
-    await app.listen({ port: 3000 })
-    app.log.info('🚀 Server ready on http://localhost:3000')
+    await app.listen({ port: 5050 })
+    app.log.info('🚀 Server ready on http://localhost:5050')
   } catch (err) {
     app.log.error(err)
     process.exit(1)

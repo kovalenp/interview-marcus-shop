@@ -6,11 +6,11 @@ import eslintConfigPrettier from 'eslint-config-prettier'
 
 export default [
   {
-    ignores: ['dist/', 'node_modules/']
+    ignores: ['dist/', 'node_modules/', '.next/']
   },
 
   {
-    files: ['src/**/*.{ts,js}'],
+    files: ['src/**/*.{ts,tsx}'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
