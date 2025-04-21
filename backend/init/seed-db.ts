@@ -105,7 +105,7 @@ async function seed() {
       categoryId: 'frame_type',
       basePrice: 105,
       attributes: { suspension: 'low' },
-      stock: 7,
+      stock: 0,
       translations: {
         en: { label: 'Step Through' },
         es: { label: 'Paso bajo' },

@@ -10,28 +10,28 @@ An interview project with full backend architecture for a customizable e-commerc
 
 ## 🧠 Domain
 
--   `Product`: Includes categories, available options, constraints, and pricing rules.
--   `PartOption`, `PartCategory`: Supports multilingual labels and dynamic pricing.
--   _(Potentially `Cart` and `Order` aggregates in a full implementation)_
+- `Product`: Includes categories, available options, constraints, and pricing rules.
+- `PartOption`, `PartCategory`: Supports multilingual labels and dynamic pricing.
+- _(Potentially `Cart` and `Order` aggregates in a full implementation)_
 
 ## 🧰 Tech Stack
 
--   **Framework:** Fastify
--   **Language:** TypeScript
--   **Database:** MongoDB (using `mongodb` driver)
--   **Logging:** Pino (for structured JSON logging)
--   **Testing:** Vitest
--   **Dependency Injection:** Manual injection via Fastify decorators (`app.decorate`)
--   **Validation/Serialization:** Implicitly handled by Fastify's schema system (though not explicitly shown in provided files)
+- **Framework:** Fastify
+- **Language:** TypeScript
+- **Database:** MongoDB (using `mongodb` driver)
+- **Logging:** Pino (for structured JSON logging)
+- **Testing:** Vitest
+- **Dependency Injection:** Manual injection via Fastify decorators (`app.decorate`)
+- **Validation/Serialization:** Implicitly handled by Fastify's schema system (though not explicitly shown in provided files)
 
 ## Key Features Implemented
 
--   **Product Listing:** (`GET /products`) Retrieves basic product information for cards.
--   **Product Detail:** (`GET /products/:slug`) Fetches full product details including available options.
--   **Constraint & Price Resolution:** (`POST /products/:slug/resolve`) Takes selected options, validates them against product constraints, calculates the total price based on base prices and price rules, and returns the resolution result (validity, available options, violations, total price, effective prices).
--   **Database Seeding:** (`init/seed-db.ts`) Script to populate the database with initial categories, options, and a sample product.
--   **Health Check:** (`GET /health`) Endpoint to verify API and database connectivity.
--   **Modular Structure:** Code organized into `routes`, `services`, `models`, `mappers`, `dto`, `db`.
+- **Product Listing:** (`GET /products`) Retrieves basic product information for cards.
+- **Product Detail:** (`GET /products/:slug`) Fetches full product details including available options.
+- **Constraint & Price Resolution:** (`POST /products/:slug/resolve`) Takes selected options, validates them against product constraints, calculates the total price based on base prices and price rules, and returns the resolution result (validity, available options, violations, total price, effective prices).
+- **Database Seeding:** (`init/seed-db.ts`) Script to populate the database with initial categories, options, and a sample product.
+- **Health Check:** (`GET /health`) Endpoint to verify API and database connectivity.
+- **Modular Structure:** Code organized into `routes`, `services`, `models`, `mappers`, `dto`, `db`.
 
 ## Running the Backend
 

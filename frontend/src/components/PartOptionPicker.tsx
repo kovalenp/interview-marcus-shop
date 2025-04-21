@@ -30,7 +30,8 @@ export default function PartOptionPicker({
       <div className="flex flex-wrap justify-center gap-6 sm:justify-start">
         {options.map((option) => {
           const isSelected = selectedId === option._id;
-          const isDisabled = !availableIds.includes(option._id);
+          const isOutOfStock = option.stock === 0;
+          const isDisabled = !availableIds.includes(option._id) || isOutOfStock;
           const label = option.translations.en?.label || option._id;
           const displayPrice =
             effectivePrices?.[option._id] ?? option.basePrice;
@@ -43,7 +44,9 @@ export default function PartOptionPicker({
               onClick={() => onSelect(option._id)}
               title={
                 isDisabled
-                  ? 'This option is not available based on your selection'
+                  ? isOutOfStock
+                    ? 'Temporarily out of stock'
+                    : 'This option is not available based on your selection'
                   : label
               }
             >
