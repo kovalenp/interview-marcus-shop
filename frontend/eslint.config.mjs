@@ -9,7 +9,7 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 export default [
   // Base config for JS/TS files (including config files) - NO type-aware rules here
   {
-    files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
+    files: ['**/*.{ts,tsx}'],
     ignores: ['node_modules/', '.next/'],
     languageOptions: {
       parser: tseslint.parser,
