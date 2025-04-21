@@ -50,6 +50,34 @@ const productsRoute: FastifyPluginAsync = async (app) => {
 
     return dto
   })
+
+  app.post<{
+    Params: { slug: string }
+    Body: { selected: Record<string, string> }
+  }>('/:slug/resolve', async (req, reply) => {
+    const { slug } = req.params
+    const { selected } = req.body
+
+    const product = await app.collections.products.findOne({ slug })
+
+    if (!product) {
+      return reply.code(404).send({ error: 'Product not found' })
+    }
+
+    const allOptionIds = Object.values(product.availableOptions).flat()
+    const partOptions = await app.collections.partOptions
+      .find({ _id: { $in: allOptionIds } })
+      .toArray()
+
+    const resolver = app.services.constraintResolverFactory({
+      product,
+      partOptions
+    })
+
+    const result = resolver.resolve(selected)
+
+    return result
+  })
 }
 
 export default productsRoute

@@ -1,27 +1,44 @@
 export interface ConstraintRule {
   /**
-   * `if` defines a selection trigger: e.g., if a user selects `mountain_wheels`
-   */
-  if: Record<string, string>
-
-  /**
-   * `then` defines which options become required or excluded based on the trigger
-   * - `require`: must also select one of these options
-   * - `exclude`: cannot select any of these options
-   *
+   * 'if' defines a dynamic condition using DSL expression(s) to match selected part(s).
    * Example:
    * {
-   *   if: { wheels: "mountain_wheels" },
-   *   then: { require: { frame_type: ["full_suspension"] } }
+   *   boots: { expression: "attributes.size > 44" }
    * }
-   *
-   * Means: if "mountain_wheels" is selected, you must select "full_suspension" frame
+   */
+  if: Record<string, { expression: string }>
+
+  /**
+   * 'then' defines required or excluded part conditions (also via expressions).
+   * You can exclude based on any attribute, e.g. rim_color.color === 'red'
    */
   then: {
-    require?: Record<string, string[]>
-    exclude?: Record<string, string[]>
+    require?: Record<string, { expression: string; message?: string }>
+    exclude?: Record<string, { expression: string; message?: string }>
   }
+
+  /**
+   * Used by frontend to know which categories are affected (for disabling/highlighting).
+   */
+  affectedCategories?: string[]
 }
+
+// Example:
+
+// {
+//   if: {
+//     wheels: { expression: "attributes.type == 'mountain'" }
+//   },
+//   then: {
+//     require: {
+//       frame_type: {
+//         expression: "attributes.suspension == 'full'",
+//         message: "Mountain wheels require full suspension frame"
+//       }
+//     }
+//   },
+//   affectedCategories: ["frame_type"]
+// }
 
 export interface PriceOverrideRule {
   /**
@@ -39,10 +56,19 @@ export interface PriceOverrideRule {
    * Means: if "diamond" frame is selected, and you're selecting a finish,
    * then the "frame_finish" price is overridden to 35 EUR.
    */
-  appliesTo: Record<string, string>
+  appliesTo: Record<string, { expression: string }>
   appliesToPart: string
   overridePrice: number
 }
+
+// Example:
+// {
+//   appliesTo: {
+//     frame_type: { expression: "attributes.suspension == 'full'" }
+//   },
+//   appliesToPart: "frame_finish",
+//   overridePrice: 50
+// }
 
 export interface Product {
   _id: string

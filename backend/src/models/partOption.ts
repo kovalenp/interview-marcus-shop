@@ -7,6 +7,7 @@ export interface PartOption {
     main: string
     gallery?: string[]
   }
+  attributes: Record<string, any>
   translations: {
     [locale: string]: {
       label: string

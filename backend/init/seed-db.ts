@@ -49,11 +49,11 @@ async function seed() {
 
   // 2. Options
   const options = [
-    // Frame types
     {
       _id: 'full_suspension',
       categoryId: 'frame_type',
       basePrice: 130,
+      attributes: { suspension: 'full' },
       stock: 5,
       translations: {
         en: { label: 'Full Suspension' },
@@ -69,6 +69,7 @@ async function seed() {
       _id: 'diamond',
       categoryId: 'frame_type',
       basePrice: 110,
+      attributes: { suspension: 'none' },
       stock: 10,
       translations: {
         en: { label: 'Diamond' },
@@ -80,12 +81,11 @@ async function seed() {
       },
       createdAt: now
     },
-
-    // Wheels
     {
       _id: 'road_wheels',
       categoryId: 'wheels',
       basePrice: 80,
+      attributes: { type: 'road' },
       stock: 12,
       translations: {
         en: { label: 'Road Wheels' },
@@ -101,6 +101,7 @@ async function seed() {
       _id: 'mountain_wheels',
       categoryId: 'wheels',
       basePrice: 95,
+      attributes: { type: 'mountain' },
       stock: 6,
       translations: {
         en: { label: 'Mountain Wheels' },
@@ -116,6 +117,7 @@ async function seed() {
       _id: 'fat_bike_wheels',
       categoryId: 'wheels',
       basePrice: 100,
+      attributes: { type: 'fat' },
       stock: 3,
       translations: {
         en: { label: 'Fat Bike Wheels' },
@@ -127,12 +129,11 @@ async function seed() {
       },
       createdAt: now
     },
-
-    // Rim colors
     {
       _id: 'black',
       categoryId: 'rim_color',
       basePrice: 10,
+      attributes: { color: 'black' },
       stock: 20,
       translations: {
         en: { label: 'Black' },
@@ -148,6 +149,7 @@ async function seed() {
       _id: 'red',
       categoryId: 'rim_color',
       basePrice: 12,
+      attributes: { color: 'red' },
       stock: 8,
       translations: {
         en: { label: 'Red' },
@@ -187,22 +189,46 @@ async function seed() {
     },
     constraints: [
       {
-        if: { wheels: 'mountain_wheels' },
-        then: { require: { frame_type: ['full_suspension'] } }
+        if: {
+          wheels: { expression: "attributes.type == 'mountain'" }
+        },
+        then: {
+          require: {
+            frame_type: {
+              expression: "attributes.suspension == 'full'",
+              message: 'Mountain wheels require full suspension frame'
+            }
+          }
+        },
+        affectedCategories: ['frame_type']
       },
       {
-        if: { wheels: 'fat_bike_wheels' },
-        then: { exclude: { rim_color: ['red'] } }
+        if: {
+          wheels: { expression: "attributes.type == 'fat'" }
+        },
+        then: {
+          exclude: {
+            rim_color: {
+              expression: "attributes.color == 'red'",
+              message: 'Fat bike wheels do not support red rims'
+            }
+          }
+        },
+        affectedCategories: ['rim_color']
       }
     ],
     priceRules: [
       {
-        appliesTo: { frame_type: 'full_suspension' },
+        appliesTo: {
+          frame_type: { expression: "attributes.suspension == 'full'" }
+        },
         appliesToPart: 'rim_color',
         overridePrice: 20
       },
       {
-        appliesTo: { frame_type: 'diamond' },
+        appliesTo: {
+          frame_type: { expression: "attributes.suspension == 'none'" }
+        },
         appliesToPart: 'rim_color',
         overridePrice: 15
       }

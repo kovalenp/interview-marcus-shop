@@ -1,6 +1,7 @@
 import 'fastify'
 import type { Collection, Db } from 'mongodb'
 import type { Product, PartOption, PartCategory /*, Cart */ } from '../models'
+import { Services } from '@/services'
 
 declare module 'fastify' {
   interface FastifyInstance {
@@ -10,5 +11,6 @@ declare module 'fastify' {
       partCategories: Collection<PartCategory>
     }
     db: Db
+    services: Services
   }
 }

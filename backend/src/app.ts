@@ -7,6 +7,7 @@ import mongoPlugin from './db/plugin'
 import healthRoute from './routes/health'
 import { v4 as uuid4 } from 'uuid'
 import productsRoute from './routes/products'
+import { registerServices } from './services'
 
 async function bootstrap() {
   const app = Fastify({
@@ -26,7 +27,8 @@ async function bootstrap() {
 
   // Plugins
   await app.register(mongoPlugin)
-
+  // Services
+  await registerServices(app)
   // Routes
   await app.register(healthRoute)
   await app.register(productsRoute, { prefix: '/products' })
