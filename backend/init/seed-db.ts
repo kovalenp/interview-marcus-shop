@@ -137,7 +137,7 @@ async function seed() {
     {
       _id: 'shiny',
       categoryId: 'frame_finish',
-      basePrice: 35,
+      basePrice: 45,
       attributes: { finish: 'shiny' },
       stock: 50,
       translations: {
@@ -343,15 +343,15 @@ async function seed() {
         appliesTo: {
           frame_type: { expression: "attributes.suspension == 'full'" }
         },
-        appliesToPart: 'rim_color',
-        overridePrice: 20
+        appliesToPart: 'matte',
+        overridePrice: 50
       },
       {
         appliesTo: {
           frame_type: { expression: "attributes.suspension == 'none'" }
         },
-        appliesToPart: 'rim_color',
-        overridePrice: 15
+        appliesToPart: 'matte',
+        overridePrice: 35
       }
     ],
     createdAt: now

@@ -1,4 +1,5 @@
 import { Product, PartOption } from '@/models'
+import { FastifyBaseLogger } from 'fastify'
 
 export interface ResolutionResult {
   valid: boolean
@@ -16,7 +17,9 @@ export class ConstraintResolverService {
     // eslint-disable-next-line no-unused-vars
     private readonly product: Product,
     // eslint-disable-next-line no-unused-vars
-    private readonly partOptions: PartOption[]
+    private readonly partOptions: PartOption[],
+    // eslint-disable-next-line no-unused-vars
+    private readonly logger: FastifyBaseLogger
   ) {}
 
   resolve(selected: Record<string, string>): ResolutionResult {
@@ -105,7 +108,7 @@ export class ConstraintResolverService {
       const fn = new Function('attributes', `return ${expression}`)
       return !!fn(context)
     } catch (err) {
-      console.warn(`DSL evaluation failed for: ${expression}`, err)
+      this.logger.warn({ err, expression }, 'DSL evaluation failed')
       return false
     }
   }

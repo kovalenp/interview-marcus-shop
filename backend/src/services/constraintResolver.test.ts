@@ -1,6 +1,17 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { ConstraintResolverService } from './constraintResolver'
 import { Product, PartOption } from '@/models'
+import { FastifyBaseLogger } from 'fastify'
+
+const mockLogger: FastifyBaseLogger = {
+  info: vi.fn(),
+  warn: vi.fn(),
+  error: vi.fn(),
+  debug: vi.fn(),
+  fatal: vi.fn(),
+  trace: vi.fn(),
+  child: vi.fn(() => mockLogger)
+} as unknown as FastifyBaseLogger
 
 const mockProduct: Product = {
   _id: 'bike',
@@ -118,7 +129,7 @@ const mockPartOptions: PartOption[] = [
 
 describe('ConstraintResolverService', () => {
   it('validates correctly when rule is satisfied', () => {
-    const resolver = new ConstraintResolverService(mockProduct, mockPartOptions)
+    const resolver = new ConstraintResolverService(mockProduct, mockPartOptions, mockLogger)
 
     const result = resolver.resolve({
       wheels: 'mountain_wheels',
@@ -130,7 +141,7 @@ describe('ConstraintResolverService', () => {
   })
 
   it('returns violation if frame is not full suspension for mountain wheels', () => {
-    const resolver = new ConstraintResolverService(mockProduct, mockPartOptions)
+    const resolver = new ConstraintResolverService(mockProduct, mockPartOptions, mockLogger)
 
     const result = resolver.resolve({
       wheels: 'mountain_wheels',
@@ -144,7 +155,7 @@ describe('ConstraintResolverService', () => {
   })
 
   it('ignores rule if if-condition is not met (e.g. road wheels)', () => {
-    const resolver = new ConstraintResolverService(mockProduct, mockPartOptions)
+    const resolver = new ConstraintResolverService(mockProduct, mockPartOptions, mockLogger)
 
     const result = resolver.resolve({
       wheels: 'road_wheels',
@@ -156,7 +167,7 @@ describe('ConstraintResolverService', () => {
   })
 
   it('tracks excludedOptions for fat wheels + red rim', () => {
-    const resolver = new ConstraintResolverService(mockProduct, mockPartOptions)
+    const resolver = new ConstraintResolverService(mockProduct, mockPartOptions, mockLogger)
     const result = resolver.resolve({
       wheels: 'fat_bike_wheels'
     })

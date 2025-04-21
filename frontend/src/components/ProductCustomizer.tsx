@@ -5,12 +5,16 @@ import { useMutation } from '@tanstack/react-query';
 import { postProductResolve } from '@/services/api';
 import PartOptionPicker from './PartOptionPicker';
 import { ProductDetailDto } from '@/types/product';
+import SummaryPanel from './SummaryPanel';
 
 export default function ProductCustomizer({
   product,
 }: {
   product: ProductDetailDto;
 }) {
+  const [effectivePrices, setEffectivePrices] = useState<
+    Record<string, number>
+  >({});
   const [selected, setSelected] = useState<Record<string, string>>({});
   const [available, setAvailable] = useState(product.availableOptions);
   const [violations, setViolations] = useState<
@@ -27,14 +31,13 @@ export default function ProductCustomizer({
     onSuccess: (result) => {
       setAvailable(result.availableOptions);
       setViolations(result.violations);
+      setEffectivePrices(result.effectivePrices);
     },
     onError: () => {
       setViolations([
-        {
-          message: 'Failed to resolve configuration. Please try again.',
-          affectedCategory: '',
-        },
+        { message: 'Failed to resolve configuration.', affectedCategory: '' },
       ]);
+      setEffectivePrices({});
     },
   });
 
@@ -65,7 +68,9 @@ export default function ProductCustomizer({
   const selectedOptions = useMemo(() => {
     return Object.entries(selected)
       .map(([, id]) => product.partOptions.find((p) => p._id === id))
-      .filter(Boolean);
+      .filter((option): option is ProductDetailDto['partOptions'][number] =>
+        Boolean(option)
+      );
   }, [selected, product.partOptions]);
 
   const totalPrice = selectedOptions.reduce(
@@ -73,39 +78,32 @@ export default function ProductCustomizer({
     0
   );
 
+  const blockingViolations = useMemo(
+    () => violations.filter((v) => !v.excludedOptions),
+    [violations]
+  );
+
   return (
-    <div className="space-y-6">
-      {product.categories.map((category) => (
-        <PartOptionPicker
-          key={category}
-          category={category}
-          options={optionsByCategory[category]}
-          selectedId={selected[category]}
-          availableIds={available[category] || []}
-          onSelect={(id) => handleSelect(category, id)}
-        />
-      ))}
-
-      {violations.length > 0 && (
-        <div className="mt-4 rounded border border-red-300 bg-red-50 p-3 text-sm text-red-700">
-          <ul className="list-inside list-disc">
-            {violations.map((v, i) => (
-              <li key={i}>{v.message}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      <div className="mt-6 flex items-center justify-between border-t pt-4">
-        <div className="text-lg font-medium">Total: €{totalPrice}</div>
-        <button
-          disabled
-          className="cursor-not-allowed rounded bg-blue-500 px-4 py-2 text-white opacity-50"
-          title="Coming soon"
-        >
-          Add to Cart
-        </button>
+    <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-4 lg:flex-row lg:items-start lg:justify-center">
+      <div className="flex-1 space-y-6">
+        {product.categories.map((category) => (
+          <PartOptionPicker
+            key={category}
+            category={category}
+            options={optionsByCategory[category]}
+            selectedId={selected[category]}
+            availableIds={available[category] || []}
+            onSelect={(id) => handleSelect(category, id)}
+            effectivePrices={effectivePrices}
+          />
+        ))}
       </div>
+      <SummaryPanel
+        selectedOptions={selectedOptions}
+        totalPrice={totalPrice}
+        violations={blockingViolations}
+        effectivePrices={effectivePrices}
+      />{' '}
     </div>
   );
 }

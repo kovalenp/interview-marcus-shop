@@ -69,14 +69,25 @@ const productsRoute: FastifyPluginAsync = async (app) => {
       .find({ _id: { $in: allOptionIds } })
       .toArray()
 
+    // Resolve constraints
     const resolver = app.services.constraintResolverFactory({
       product,
       partOptions
     })
-
     const result = resolver.resolve(selected)
 
-    return result
+    // Calculate prices
+    const priceService = app.services.priceServiceFactory({
+      product,
+      partOptions
+    })
+    const { total, effectivePrices } = priceService.getPriceDetails(selected)
+
+    return {
+      ...result,
+      price: total,
+      effectivePrices
+    }
   })
 }
 

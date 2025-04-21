@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Marcus Shop Frontend
 
-## Getting Started
+A Next.js application serving as the user-facing storefront and product customizer for the Marcus Shop project.
 
-First, run the development server:
+✅ Next.js App Router
+✅ React 19 + TypeScript
+✅ Tailwind CSS for styling
+✅ TanStack Query for server state management
+✅ Modular components and API service
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🧰 Tech Stack
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Framework:** Next.js (App Router)
+- **Language:** TypeScript
+- **UI Library:** React
+- **Styling:** Tailwind CSS
+- **State Management:** React state + TanStack Query (for server state)
+- **Linting/Formatting:** ESLint + Prettier
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Key Features Implemented
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Product Listing Page:** (`/`) Displays available products fetched from the backend API using TanStack Query.
+- **Product Detail Page:** (`/product/[slug]`) Shows detailed information for a selected product and hosts the customizer.
+- **Product Customizer:** (`ProductCustomizer` component) Allows users to select different part options for a product.
+- **Option Picker:** (`PartOptionPicker` component) UI for selecting options within a category.
+- **Summary Panel:** (`SummaryPanel` component) Displays selected options, calculated price, and constraint violations.
+- **API Integration:** Uses `fetch` via a dedicated service (`src/services/api.ts`) to communicate with the backend API for fetching products and resolving configurations.
+- **Constraint Handling:** Displays violations and updates available options based on the backend's resolution response.
 
-## Learn More
+## Running the Frontend
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1.  Ensure the backend service is running (see `backend/README.md`).
+2.  Navigate to the workspace root directory (`/Users/pavelkovalenko/Work/interview-marcus-shop`).
+3.  Start the development server:
+    ```bash
+    pnpm --filter frontend dev
+    ```
+4.  Open [http://localhost:3000](http://localhost:3000) in your browser.
