@@ -12,7 +12,6 @@ import cors from '@fastify/cors'
 
 async function bootstrap() {
   const app = Fastify({
-    // Logger configuration
     logger: {
       level: 'info',
       transport: {
@@ -45,7 +44,6 @@ async function bootstrap() {
 
   try {
     await app.listen({ port: 5050 })
-    app.log.info('🚀 Server ready on http://localhost:5050')
   } catch (err) {
     app.log.error(err)
     process.exit(1)

@@ -14,14 +14,10 @@
 ## Running the Frontend locally
 
 1.  Ensure the backend service is running.
-2.  Set up environment variables (e.g., in a `.env` file in the `frontend` directory): `NEXT_PUBLIC_API_URL=localhost:5050`.
-3.  Navigate to the frontend folder.
-4.  Install dependencies:
-    ```bash
-    pnpm install
-    ```
-5.  Start the development server:
+2.  Navigate to the frontend folder.
+3.  Set up environment variables (e.g., in a `.env` file in the `frontend` directory): `NEXT_PUBLIC_API_URL=localhost:5050`.
+4.  Start the development server:
     ```bash
     pnpm dev
     ```
-6.  Open [http://localhost:3000](http://localhost:3000) in your browser.
+5.  Open [http://localhost:3000](http://localhost:3000) in your browser.

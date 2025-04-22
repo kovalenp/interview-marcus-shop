@@ -7,6 +7,15 @@ Good day, thank you for considering my application.
 This repository consists of two parts: **frontend** and **backend**, structured as a monorepo for reviewer convenience.
 Inside you will find detailed instructions on how to run the project locally.
 
+## Important
+
+Install the packages using `pnpm` (not `npm` or `yarn`) to ensure compatibility with the workspace setup.
+
+Run command from the root of the project:
+`bash
+    pnpm install
+    `
+
 ## 🛠️ Tech Stack
 
 ### Frontend

@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**',
+        hostname: '**',  // Security issue, only allow for interview purposes because I took some random images on the internet :)
       },
     ],
   },

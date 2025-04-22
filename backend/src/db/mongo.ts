@@ -1,4 +1,4 @@
-import pino from 'pino' // Import pino
+import pino from 'pino'
 import { MongoClient, Db } from 'mongodb'
 import { PartCategory, PartOption, Product } from '@/models'
 

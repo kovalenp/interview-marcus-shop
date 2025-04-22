@@ -51,6 +51,7 @@ const productsRoute: FastifyPluginAsync = async (app) => {
     return dto
   })
 
+  // ✅ POST /products/:slug/resolve → Update product options on each change and calculate price
   app.post<{
     Params: { slug: string }
     Body: { selected: Record<string, string> }

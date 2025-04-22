@@ -9,17 +9,17 @@
 
 ## Running the Backend
 
-1.  Ensure MongoDB is running on standard port.
-2.  Set up environment variables (e.g., in a `.env` file in the `backend` directory): `MONGO_URL`, `MONGO_DB_NAME`.
-3.  Install dependencies:
+1.  Ensure MongoDB by running docker compose.
     ```bash
-    pnpm install
+    docker compose up -d
     ```
-4.  Seed the database (run from the backend folder):
+    Alternatively, you can use a local MongoDB instance if you have it installed.
+2.  Set up environment variables (e.g., in a `.env` file in the `backend` directory): `MONGO_URL`, `MONGO_DB_NAME`.
+3.  Seed the database (run from the backend folder):
     ```bash
     pnpm db:init
     ```
-5.  Start the development server (run from the workspace root):
+4.  Start the development server (run from the workspace root):
     ```bash
     pnpm dev
     ```
