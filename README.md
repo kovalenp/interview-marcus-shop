@@ -39,8 +39,8 @@ Run command from the root of the project:
 2. View and customize a specific product
 3. Select options across categories
 4. Get real-time price and validation
-5. Add a valid configuration to cart
-6. (Future) Checkout and payment flow
+5. (Out of scope) Add a valid configuration to cart
+6. (Out of scope) Checkout and payment flow
 
 ---
 
@@ -97,7 +97,7 @@ Run command from the root of the project:
 }
 ```
 
-5. Linked to mock user or cookie session
+5. Linked to userId or cookie session
 
 ---
 
