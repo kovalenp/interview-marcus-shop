@@ -1,22 +1,3 @@
-# Marcus Shop Frontend
-
-A Next.js application serving as the user-facing storefront and product customizer for the Marcus Shop project.
-
-✅ Next.js App Router
-✅ React 19 + TypeScript
-✅ Tailwind CSS for styling
-✅ TanStack Query for server state management
-✅ Modular components and API service
-
-## 🧰 Tech Stack
-
-- **Framework:** Next.js (App Router)
-- **Language:** TypeScript
-- **UI Library:** React
-- **Styling:** Tailwind CSS
-- **State Management:** React state + TanStack Query (for server state)
-- **Linting/Formatting:** ESLint + Prettier
-
 ## Key Features Implemented
 
 - **Product Listing Page:** (`/`) Displays available products fetched from the backend API using TanStack Query.
@@ -27,12 +8,17 @@ A Next.js application serving as the user-facing storefront and product customiz
 - **API Integration:** Uses `fetch` via a dedicated service (`src/services/api.ts`) to communicate with the backend API for fetching products and resolving configurations.
 - **Constraint Handling:** Displays violations and updates available options based on the backend's resolution response.
 
-## Running the Frontend
+## Running the Frontend locally
 
-1.  Ensure the backend service is running (see `backend/README.md`).
-2.  Navigate to the workspace root directory (`/Users/pavelkovalenko/Work/interview-marcus-shop`).
-3.  Start the development server:
+1.  Ensure the backend service is running.
+2.  Set up environment variables (e.g., in a `.env` file in the `frontend` directory): `NEXT_PUBLIC_API_URL=localhost:5050`.
+3.  Navigate to the frontend folder.
+4.  Install dependencies:
     ```bash
-    pnpm --filter frontend dev
+    pnpm install
     ```
-4.  Open [http://localhost:3000](http://localhost:3000) in your browser.
+5.  Start the development server:
+    ```bash
+    pnpm dev
+    ```
+6.  Open [http://localhost:3000](http://localhost:3000) in your browser.

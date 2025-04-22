@@ -1,29 +1,3 @@
-# Marcus Shop Backend
-
-An interview project with full backend architecture for a customizable e-commerce store.
-
-✅ Domain-Driven Design
-✅ MongoDB
-✅ JSON-structured logging (Cloudwatch/ELK ready)
-✅ Modular services, models, routes
-✅ Fastify + TypeScript + Vitest
-
-## 🧠 Domain
-
-- `Product`: Includes categories, available options, constraints, and pricing rules.
-- `PartOption`, `PartCategory`: Supports multilingual labels and dynamic pricing.
-- _(Potentially `Cart` and `Order` aggregates in a full implementation)_
-
-## 🧰 Tech Stack
-
-- **Framework:** Fastify
-- **Language:** TypeScript
-- **Database:** MongoDB (using `mongodb` driver)
-- **Logging:** Pino (for structured JSON logging)
-- **Testing:** Vitest
-- **Dependency Injection:** Manual injection via Fastify decorators (`app.decorate`)
-- **Validation/Serialization:** Implicitly handled by Fastify's schema system (though not explicitly shown in provided files)
-
 ## Key Features Implemented
 
 - **Product Listing:** (`GET /products`) Retrieves basic product information for cards.
@@ -35,17 +9,17 @@ An interview project with full backend architecture for a customizable e-commerc
 
 ## Running the Backend
 
-1.  Ensure MongoDB is running.
+1.  Ensure MongoDB is running on standard port.
 2.  Set up environment variables (e.g., in a `.env` file in the `backend` directory): `MONGO_URL`, `MONGO_DB_NAME`.
-3.  Seed the database (run from the workspace root):
+3.  Install dependencies:
     ```bash
-    pnpm --filter backend db:init
+    pnpm install
     ```
-4.  Start the development server (run from the workspace root):
+4.  Seed the database (run from the backend folder):
     ```bash
-    pnpm --filter backend dev
+    pnpm db:init
     ```
-5.  Run tests (run from the workspace root):
+5.  Start the development server (run from the workspace root):
     ```bash
-    pnpm --filter backend test
+    pnpm dev
     ```
