@@ -1,3 +1,6 @@
+![image](https://github.com/user-attachments/assets/d79e4b4b-ca17-4615-aa44-d77b8abfe568)
+
+
 ## Key Features Implemented
 
 - **Product Listing Page:** (`/`) Displays available products fetched from the backend API using TanStack Query.
