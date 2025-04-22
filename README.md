@@ -12,7 +12,7 @@ Inside you will find detailed instructions on how to run the project locally.
 Install the packages using `pnpm` (not `npm` or `yarn`) to ensure compatibility with the workspace setup.
 
 Run command from the root of the project:
-`bash
+`
     pnpm install
     `
 
